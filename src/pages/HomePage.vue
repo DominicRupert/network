@@ -9,21 +9,21 @@
       <div class="row justify-content-center">
       <div class="col-3 text-end">
         <button
-          :disabled="page <= 1"
+          
           class="btn btn-info px-3 py-2 btn-block"
-          @click="changePage(pageNumber - 1)"
+          @click="changePage(newer)"
         >
           prev
         </button>
       </div>
       <p class="col-3 text-center">
-        page {{ page }} {{ totalPages }}
+      page:   {{ page }}
       </p>
       <div class="col-3 text-start">
         <button
-          :disabled="page >= totalPages"
+       
           class="btn btn-info px-3 py-2 btn-block"
-          @click="changePage(pageNumber + 1)"
+          @click="changePage(older)"
         >
           next
         </button>
@@ -55,10 +55,13 @@ export default {
     return {
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.Account),
+      newer: computed(() => AppState.newer),
+      older: computed(() => AppState.older),
+      page: computed(() => AppState.page),
       totalPages: computed(() => AppState.totalPages),
-         async changePage(pageNumber) {
+         async changePage(url) {
         try {
-          await postsService.changePage(pageNumber);
+          await postsService.changePage(url);
         } catch (error) {
           Pop.toast(error.message, "error");
           logger.error(error);
