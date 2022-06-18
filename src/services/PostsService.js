@@ -8,9 +8,9 @@ class PostsService {
     logger.log(res.data, "sup");
 
     AppState.posts = res.data.posts;
-    AppState.newer = res.data.newer
-    AppState.older = res.data.older
-
+    AppState.newer = res.data.newer;
+    AppState.older = res.data.older;
+    AppState.page = res.data.page;
     AppState.totalPages = res.data.totalPages;
   }
 
@@ -18,14 +18,16 @@ class PostsService {
     const res = await api.get(`api/posts/?creatorId=${profileId}`);
     logger.log(res.data, "supper");
     AppState.posts = res.data.posts;
-    AppState.newer = res.data.newer
-    AppState.older = res.data.older
+    AppState.newer = res.data.newer;
+    AppState.older = res.data.older;
+    AppState.page = res.data.page;
 
     AppState.totalPages = res.data.posts.totalPages;
   }
   async createPost(postData) {
     const res = await api.post("api/posts", postData);
     logger.log(res.data);
+    AppState.page = res.data.page;
 
     AppState.posts.push(res.data.posts);
   }
@@ -42,9 +44,14 @@ class PostsService {
     const res = await api.get(url);
     logger.log("changePaged", res.data);
     AppState.posts = res.data.posts;
-    AppState.newer = res.data.newer
-    AppState.older = res.data.older
+    AppState.newer = res.data.newer;
+    AppState.page = res.data.page;
+
+    AppState.older = res.data.older;
     AppState.totalPages = res.data.totalPages;
+  }
+  setActive(post) {
+    AppState.activePost = post
   }
 }
 export const postsService = new PostsService();

@@ -1,7 +1,7 @@
 <template>
     <!-- <div class="row "> -->
         <form class="  pb-4 d-flex flex-column bg-dark" action="" @submit.prevent="createPost">
-            <p>Create a post</p>
+            <h1>Create a post</h1>
             <input type="text" placeholder=" title" v-model="postData.title" />
             <input type="text" placeholder=" image url" v-model="postData.imgUrl" />
             <textarea name="" id="" cols="30" rows="4" placeholder=" Post description" v-model="postData.body"></textarea>

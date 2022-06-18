@@ -1,7 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
+     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+      <div class="d-flex align-items-center">
+        <span class="mdi mdi-ocarina text-primary icon"></span> Dom's pretty sweet social network
       </div>
     </router-link>
     <button
@@ -18,12 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link
-            :to="{ name: 'About' }"
-            class="btn text-success lighten-30 selectable text-uppercase"
-          >
-            About
-          </router-link>
+      
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -51,5 +47,9 @@ a:hover {
   border-bottom: 2px solid var(--bs-dark);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.icon{
+  width: 100px;
+  height: auto;
 }
 </style>

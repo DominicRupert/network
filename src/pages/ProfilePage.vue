@@ -16,8 +16,8 @@
         </h3>
       </div>
     </div>
-    <CreatePost v-if="account.id == profile.id" />
     <div class="row">
+      <CreatePost v-if="account.id == profile.id" />
       <Post v-for="p in posts" :key="p.id" :post="p" />
     </div>
   </div>
@@ -63,12 +63,12 @@ export default {
   background-color: var(--bs-primary);
 }
 .profile {
-  transform: translateY(-10vh);
+  
 }
 .profile-img {
   width: 150px;
   height: 150px;
   object-fit: cover;
-  border-radius: 50em;
+  
 }
 </style>
