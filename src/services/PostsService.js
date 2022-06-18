@@ -27,9 +27,9 @@ class PostsService {
   async createPost(postData) {
     const res = await api.post("api/posts", postData);
     logger.log(res.data);
+    AppState.posts.push(res.data.posts);
     AppState.page = res.data.page;
 
-    AppState.posts.push(res.data.posts);
   }
   async removePost(id) {
     const res = await api.delete(`api/posts/${id}`);

@@ -6,22 +6,19 @@
       <Post v-for="p in posts" :key="p.id" :post="p" />
     </div>
   </div>
-      <div class="row justify-content-center">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
       <div class="col-3 text-end">
         <button
-          
           class="btn btn-info px-3 py-2 btn-block"
           @click="changePage(newer)"
         >
           prev
         </button>
       </div>
-      <p class="col-3 text-center">
-      page:   {{ page }}
-      </p>
+      <p class="col-3 text-center">page: {{ page }}</p>
       <div class="col-3 text-start">
         <button
-       
           class="btn btn-info px-3 py-2 btn-block"
           @click="changePage(older)"
         >
@@ -29,6 +26,7 @@
         </button>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -59,7 +57,7 @@ export default {
       older: computed(() => AppState.older),
       page: computed(() => AppState.page),
       totalPages: computed(() => AppState.totalPages),
-         async changePage(url) {
+      async changePage(url) {
         try {
           await postsService.changePage(url);
         } catch (error) {

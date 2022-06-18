@@ -43,7 +43,7 @@ export default {
   setup() {
     onBeforeUnmount(() => {
       Modal.getOrCreateInstance(
-        document.getElementById("project-modal")
+        document.getElementById("post-modal")
       ).hide();
     });
     return {};

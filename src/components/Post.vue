@@ -8,10 +8,25 @@
     >
       <i class="mdi mdi-delete-forever"></i>
     </button>
+    <Modal v-if="post.creatorId == account.id" :id="'edit-post' + post.id">
+        <template #header>Edit {{ post.make }} {{ post.model }}</template>
+        <template #body> <CreatePost :editPost="post" /></template>
+        <template #button>
+          <button
+            type="button"
+            class="btn btn-warning edit-button position-absolute"
+            data-bs-toggle="modal"
+            :data-bs-target="'#edit-post' + post.id"
+          >
+            <i class="mdi mdi-pencil"></i>
+          </button>
+        </template>
+      </Modal>
+<div>
 
-   
-    <h4>
-      {{ post.body }}
+  
+  <h4>
+    {{ post.body }}
     </h4>
     <!-- dig into github -->
 
@@ -22,6 +37,7 @@
       }}
     </p>
   </div>
+        </div>
 </template>
 
 
@@ -32,43 +48,34 @@ import Pop from "../utils/Pop.js";
 import { postsService } from "../services/PostsService.js";
 import { useRouter } from "vue-router";
 import { Modal } from "bootstrap";
+import CreatePost from "./CreatePost.vue";
 export default {
-  props: { post: { type: Object, reqiured: true } },
-  setup(props) {
-    const router = useRouter();
-    return {
-      setActive() {
-        postsService.setActive(props.post);
-        Modal.getOrCreateInstance(document.getElementById("post-modal")).show();
-      },
-      goToProfile() {
-        router.push({
-          name: "Profile",
-          params: { id: props.post.creatorId },
-        });
-      },
-      account: computed(() => AppState.account),
-      async removePost() {
-        try {
-          await postsService.removePost(props.post.id);
-        } catch (error) {
-          Pop.toast(error.message, "error");
-        }
-      },
-      async editPost() {
-        try {
-          await postsService.editPost(postData.value);
-          Modal.getOrCreateInstance(
-            document.getElementById("edit-post" + postData.value.id)
-          ).hide();
-          Pop.toast("edited post", "success");
-        } catch (error) {
-          Pop.toast(error.message, "error");
-          logger.error(error);
-        }
-      },
-    };
-  },
+    props: { post: { type: Object, reqiured: true } },
+    setup(props) {
+        const router = useRouter();
+        return {
+            setActive() {
+                postsService.setActive(props.post);
+                Modal.getOrCreateInstance(document.getElementById("post-modal")).show();
+            },
+            goToProfile() {
+                router.push({
+                    name: "Profile",
+                    params: { id: props.post.creatorId },
+                });
+            },
+            account: computed(() => AppState.account),
+            async removePost() {
+                try {
+                    await postsService.removePost(props.post.id);
+                }
+                catch (error) {
+                    Pop.toast(error.message, "error");
+                }
+            },
+        };
+    },
+    components: { CreatePost }
 };
 </script>
 
