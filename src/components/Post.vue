@@ -1,8 +1,8 @@
 <template >
   <div class="col-6 card bg-dark border border-3">
-    <h1>
+    <h3>
       {{ post.body }}
-    </h1>
+    </h3>
     <button
       v-show="post.creatorId == account.id"
       class="delete-button btn btn-danger rounded-pill content selectable"
@@ -10,11 +10,8 @@
     >
       <i class="mdi mdi-delete-forever"></i>
     </button>
-    <button
-      class="mdi mdi-thumb-up btn btn-success rounded-pill content selectable"
-    ></button>
 
-    <div>
+    <div class="row">
       <!-- dig into github -->
 
       <img class="img-fluid" :src="post.imgUrl" alt="" />
@@ -24,6 +21,10 @@
           post.creator.name
         }}
       </p>
+      <button
+        @click="likePost"
+        class="mdi mdi-thumb-up btn btn-success rounded-pill content selectable"
+      >{{likes.name}}</button>
     </div>
   </div>
 </template>
@@ -31,17 +32,27 @@
 
 <script>
 import { AppState } from "../AppState.js";
-import { computed, onMounted } from "vue";
+import { computed,ref, onMounted } from "vue";
 import Pop from "../utils/Pop.js";
 import { postsService } from "../services/PostsService.js";
 import { useRouter } from "vue-router";
 import { Modal } from "bootstrap";
 import CreatePost from "./CreatePost.vue";
+import { logger } from "../utils/Logger.js";
+import { profilesService } from "../services/ProfilesService.js";
+import { adsService } from "../services/AdsService.js";
 export default {
+  
   props: { post: { type: Object, reqiured: true } },
   setup(props) {
+    const postData = ref({});
     const router = useRouter();
     return {
+      
+  profile: computed(() => AppState.profile),
+  posts: computed(() => AppState.posts),
+  likes: computed(() => AppState.likes),
+      postData ,
       goToProfile() {
         router.push({
           name: "Profile",
@@ -59,8 +70,24 @@ export default {
           Pop.toast(error.message, "error");
         }
       },
+      // likePost(likeIds,likes, posts,postId,post) {
+      //   likes++;
+      //   postsService.likePost(post);
+      // },
+       
+  
+      async likePost() {
+        try {
+          await postsService.likePost(postData.value);
+          like++
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "error");
+        }
+      },
     };
   },
+  
   components: { CreatePost },
 };
 </script>

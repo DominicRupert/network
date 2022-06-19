@@ -10,7 +10,7 @@
           align-items-center
         "
       >
-        <img class="profile-img" :src="profile.picture" alt="" />
+        <img class="profile-img img-fluid" :src="profile.picture" alt="" />
         <div class="row text-center">
           <div class="row">
             <h1>
@@ -61,7 +61,7 @@
 
 <script>
 import { AppState } from "../AppState";
-import { computed, reactive, onMounted, ref } from "vue";
+import { computed, reactive, onMounted, ref, watchEffect } from "vue";
 import Pop from "../utils/Pop";
 import { logger } from "../utils/Logger";
 import { useRoute } from "vue-router";
@@ -70,6 +70,13 @@ import { postsService } from "../services/PostsService";
 export default {
   name: "Profile",
   setup() {
+     const editable = ref({});
+    watchEffect(() => {
+      AppState.account;
+      logger.log("account updated", AppState.account, editable.value);
+      // NOTE the spread operator here just breaks reference of the original object
+      editable.value = { ...AppState.account };
+    });
     const route = useRoute();
     onMounted(async () => {
       try {
@@ -82,20 +89,18 @@ export default {
       }
     });
     return {
-       async editProfile() {
+    
+      editable,
+      account: computed(() => AppState.account),
+      async saveAccount() {
         try {
-          logger.log(profileData.value);
-          await profilesService.editProfile(profileData.value);
-          profileData.value = {};
-          Modal.getOrCreateInstance(
-            document.getElementById("edit-profile" + profileData.value.id)
-          ).hide();
-          Pop.toast("edited profile", "success");
+          await accountService.editAccount(editable.value);
         } catch (error) {
           Pop.toast(error.message, "error");
           logger.error(error);
         }
       },
+    
     
       profile: computed(() => AppState.profile),
 

@@ -13,5 +13,8 @@ export const AppState = reactive({
   query: "",
   searchResults: [],
   activeProfile: {},
-  likes: [],
+  likes:'',
+  likeIds:'',
+  ads: [],
+  
 });
