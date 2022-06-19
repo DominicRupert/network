@@ -65,6 +65,7 @@ export default {
           logger.error(error);
         }
       },
+      
     };
   },
 };

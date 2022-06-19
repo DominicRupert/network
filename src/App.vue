@@ -5,7 +5,7 @@
   <main class=" bg-secondary">
     <router-view />
   </main>
-  <Modal id="post-modal">
+  <Modal id="">
     <template #header> post details </template>
     <template #body>
       <ActivePost />

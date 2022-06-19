@@ -1,24 +1,17 @@
 <template>
-  <!-- <div class="row "> -->
+  <div class="row ">
   <form
     class="pb-4 d-flex flex-column bg-dark"
     action=""
-    @submit.prevent="createPost"
+    @submit="createPost"
   >
     <h1>Create a post</h1>
-    <input type="text" placeholder=" title" v-model="postData.title" />
+    <input type="text" placeholder=" title" v-model="postData.body" />
+    
     <input type="text" placeholder=" image url" v-model="postData.imgUrl" />
-    <textarea
-      name=""
-      id=""
-      cols="30"
-      rows="4"
-      placeholder=" Post description"
-      v-model="postData.body"
-    ></textarea>
     <button class="btn btn-primary">create</button>
   </form>
-  <!-- </div> -->
+  </div>
 </template>
 
 
@@ -30,7 +23,9 @@ import { logger } from "../utils/Logger.js";
 import { postsService } from "../services/postsService.js";
 import Pop from "../utils/Pop.js";
 export default {
-  setup() {
+    props: { post: { type: Object, reqiured: true } },
+
+  setup(props) {
     const postData = ref({});
     return {
       postData,
@@ -42,18 +37,7 @@ export default {
           Pop.toast(error.message, "error");
         }
       },
-      async editPost() {
-        try {
-          await postsService.editPost(postData.value);
-          Modal.getOrCreateInstance(
-            document.getElementById("edit-post" + postData.value.id)
-          ).hide();
-          Pop.toast("edited post", "success");
-        } catch (error) {
-          Pop.toast(error.message, "error");
-          logger.error(error);
-        }
-      },
+   
     };
   },
 };

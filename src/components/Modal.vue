@@ -1,14 +1,21 @@
 <template>
+  <!-- Button trigger modal -->
+  <slot name="button">
+    <!--  -->
+  
+    <!--  -->
+  </slot>
   <!-- Modal -->
   <div
     class="modal fade"
+    :id="id"
     tabindex="-1"
     role="dialog"
     aria-labelledby="modelTitleId"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-fullscreen" role="document">
-      <div class="modal-content bg-transparent border-0">
+    <div class="modal-dialog dialog-lg" role="document">
+      <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">
             <slot name="header">
@@ -18,7 +25,7 @@
           </h5>
           <button
             type="button"
-            class="btn-close btn btn-light bg-light"
+            class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
           ></button>
@@ -26,6 +33,7 @@
         <div class="modal-body">
           <slot name="body">
             <!--  -->
+            something here is a default
             <!--  -->
           </slot>
         </div>
@@ -34,18 +42,16 @@
   </div>
 </template>
 
-
 <script>
 import { AppState } from "../AppState";
-import { computed, reactive, onMounted, onBeforeUnmount } from "vue";
+import { computed, reactive, onMounted, ref } from "vue";
+import Pop from "../utils/Pop";
+import { profilesService } from "../services/ProfilesService";
+import { logger } from "../utils/Logger";
 import { Modal } from "bootstrap";
 export default {
+  props: { id: { type: String } },
   setup() {
-    onBeforeUnmount(() => {
-      Modal.getOrCreateInstance(
-        document.getElementById("post-modal")
-      ).hide();
-    });
     return {};
   },
 };

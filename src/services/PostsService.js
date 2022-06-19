@@ -36,10 +36,7 @@ class PostsService {
     logger.log(res.data);
     AppState.posts = AppState.posts.filter((post) => post.id != id);
   }
-  async editPost(id, postData) {
-    const res = await api.put(`api/posts/${id}`, postData);
-    logger.log(res.data.posts);
-  }
+
   async changePage(url) {
     const res = await api.get(url);
     logger.log("changePaged", res.data);
