@@ -3,7 +3,7 @@
   <form
     class="pb-4 d-flex flex-column bg-dark"
     action=""
-    @submit="createPost"
+    @submit.prevent="createPost"
   >
     <h1>Create a post</h1>
     <input type="text" placeholder=" title" v-model="postData.body" />
@@ -23,9 +23,9 @@ import { logger } from "../utils/Logger.js";
 import { postsService } from "../services/postsService.js";
 import Pop from "../utils/Pop.js";
 export default {
-    props: { post: { type: Object, reqiured: true } },
+  
 
-  setup(props) {
+  setup() {
     const postData = ref({});
     return {
       postData,

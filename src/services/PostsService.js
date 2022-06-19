@@ -36,6 +36,10 @@ class PostsService {
     logger.log(res.data);
     AppState.posts = AppState.posts.filter((post) => post.id != id);
   }
+  async likePost(likePost) {
+    const res = await api.post('api/posts/likes/' + likePost.id, likePost)
+      AppState.like = new Like(res.data.likes)
+  }
 
   async changePage(url) {
     const res = await api.get(url);

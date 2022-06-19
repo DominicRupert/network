@@ -2,7 +2,6 @@
   <div class="col-6 card bg-dark border border-3">
     <h1>
       {{ post.body }}
-   
     </h1>
     <button
       v-show="post.creatorId == account.id"
@@ -11,14 +10,15 @@
     >
       <i class="mdi mdi-delete-forever"></i>
     </button>
-<button class="mdi mdi-linkedin"></button>
+    <button
+      class="mdi mdi-thumb-up btn btn-success rounded-pill content selectable"
+    ></button>
 
     <div>
-  
       <!-- dig into github -->
 
-      <img  class="img-fluid" :src="post.imgUrl" alt="" />
-       <p class="mb-0">{{ formatDate(post.createdAt) }}</p>
+      <img class="img-fluid" :src="post.imgUrl" alt="" />
+      <p class="mb-0">{{ formatDate(post.createdAt) }}</p>
       <p class="profile m-0 selectable p-1 rounded" @click.stop="goToProfile">
         <img class="profile-img me-2" :src="post.creator.picture" alt="" />{{
           post.creator.name
@@ -42,7 +42,6 @@ export default {
   setup(props) {
     const router = useRouter();
     return {
-  
       goToProfile() {
         router.push({
           name: "Profile",
@@ -60,7 +59,6 @@ export default {
           Pop.toast(error.message, "error");
         }
       },
-   
     };
   },
   components: { CreatePost },
@@ -80,7 +78,6 @@ export default {
   color: var(--bs-light);
   border: 0;
 }
-
 
 .img-fluid {
   max-width: 40vw;

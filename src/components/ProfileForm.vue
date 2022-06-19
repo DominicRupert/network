@@ -1,34 +1,43 @@
 <template>
-        <form class="d-flex flex-column" action="" >
+  <form class="d-flex flex-column row" action="" @submit.prevent="saveAccount">
     <div class="about text-center">
-        <h1>Welcome {{ account.name }}</h1>
-      <img class="rounded" :src="account.picture" alt="" />
+      <h1>Welcome {{ account.name }}</h1>
+      <img class="rounded img-fluid"  :src="account.picture" alt="" />
       <p>{{ account.email }}</p>
     </div>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-8">
+      <div class="row justify-content-center">
+        <div class="col-8">
           <label for="">account name</label>
-          <input  class="form-control" type="text" v-model="profileData.name" />
+          <input class="form-control" type="text" v-model="editable.name" />
           <label for="">bio</label>
-          <input  class="form-control" type="text" v-model="profileData.bio" />
+          <input class="form-control" type="text" v-model="editable.bio" />
           <label for="">class</label>
-          <input  class="form-control" type="text" v-model="profileData.class" />
-          <label for="">account name</label>
-          <input class="form-control"  type="text" v-model="profileData.linkedin" />
-          <label for="">account name</label>
-          <input class="form-control" type="text" v-model="profileData.github" />
+          <input class="form-control" type="text" v-model="editable.class" />
+          <label for="">LinkedIn url</label>
+          <input
+            class="form-control"
+            type="text"
+            v-model="editable.linkedin"
+          />
+          <label for="">github</label>
+          <input
+            class="form-control"
+            type="text"
+            v-model="editable.github"
+          />
           <label for="">account picture</label>
-          <input type="text" v-model="profileData.picture" />
-          <label for="">account cover image</label>
+          <input type="text" class="form-control" v-model="editable.picture" />
+          
           <div>
-
-              <button v-if="profileData.id" @click.prevent="editProfile" class="btn btn-primary" >
-      Edit Profile
-    </button>
+            <button 
+              
+              
+              class="btn btn-primary p-3 mt-2"
+            >
+              Edit Profile
+            </button>
           </div>
-
-        
         </div>
       </div>
     </div>
@@ -41,46 +50,49 @@
 
 <script>
 import { AppState } from "../AppState";
-import { computed, reactive, onMounted } from "vue";
-import { watchEffect, ref } from "@vue/runtime-core";
+import { computed, reactive, onMounted, watchEffect, ref} from "vue";
+
 import Pop from "../utils/Pop";
 import { logger } from "../utils/Logger";
 import { useRoute } from "vue-router";
 import { Modal } from "bootstrap";
+import { accountService } from "../services/AccountService.js";
 import { profilesService } from "../services/ProfilesService";
 import { postsService } from "../services/PostsService";
 export default {
-  name: "Profile",
-  props: { editProfile: { type: Object, required: true, default: {} } },
+  
 
-  setup(props) {
+
+  setup() {
+    const route = useRoute();
     const profileData = ref({});
-
+    const accountData = ref({});
+    const editable = ref({});
     watchEffect(() => {
-        if (props.editProfile) {
-            profileData.value = props.editProfile;
-        }
-      logger.log(props.editProfile);
-      profileData.value = {...AppState.account, ...props.editProfile};
+  AppState.account
+       logger.log("account updated", AppState.account, editable.value);
+      editable.value = { ...AppState.account };
+      
     });
 
-
     return {
-      profileData,
-      async editProfile() {
+        editable,
+          accountData,
+        profileData,
+      account: computed(() => AppState.account),
+      async saveAccount() {
         try {
-          logger.log(profileData.value);
-          await profilesService.editProfile(profileData.value);
-          profileData.value = {}
-          Modal.getOrCreateInstance(
-            document.getElementById("edit-profile" + profileData.value.id)
-          ).hide();
-          Pop.toast("edited profile", "success");
+          await accountService.editAccount(editable.value);
+         Pop.toast("Updated Account", "success");
         } catch (error) {
           Pop.toast(error.message, "error");
           logger.error(error);
         }
       },
+       
+   
+   
+      
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       posts: computed(() => AppState.posts),
