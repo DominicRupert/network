@@ -8,8 +8,8 @@
   </div>
   <div class="container-fluid d-flex flex-column">
     <div class="row justify-content-center">
-      <Ad v-for="ad in ads" :key="ad.banner" :ad="ad"/>
-      <Ad v-for="ad in ads" :key="ad.tall" :ad="ad"/>
+      <Ad v-for="ad in ads" :key="ad.id" :ad="ad"/>
+      <Ad v-for="ad in ads" :key="ad.id" :ad="ad"/>
       <Post v-for="post in posts" :key="post.id" :post="post" />
       <div class="col-3 text-end">
         <button
@@ -48,16 +48,9 @@ export default {
     onMounted(async () => {
       try {
         AppState.posts = [];
-        await postsService.getPosts();
+       
         
-      } catch (error) {
-        Pop.toast(error.message, "error");
-        logger.error(error);
-      }
-      try {
-        AppState.posts = [];
         await postsService.getPosts();
-        
       } catch (error) {
         Pop.toast(error.message, "error");
         logger.error(error);
@@ -66,25 +59,6 @@ export default {
     
 
     return {
-      async changePage(url) {
-        try {
-          await postsService.changePage(url);
-        } catch (error) {
-          Pop.toast(error.message, "error");
-          logger.error(error);
-        }
-      },
-      async getAds() {
-            try {
-              AppState.posts = [];
-              await adsService.getAds();
-                logger.log("getting ad", ad.value);
-            } catch (error) {
-                Pop.toast(error.message, "error");
-                logger.error(error);
-            }
-        },
-      
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
       newer: computed(() => AppState.newer),
@@ -93,6 +67,15 @@ export default {
       totalPages: computed(() => AppState.totalPages),
       likes: computed(() => AppState.likes),
       ads: computed(() => AppState.ads),
+      async changePage(url) {
+        try {
+          await postsService.changePage(url);
+        } catch (error) {
+          Pop.toast(error.message, "error");
+          logger.error(error);
+        }
+      },
+      
       
     };
   },

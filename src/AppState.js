@@ -11,10 +11,12 @@ export const AppState = reactive({
   newer: "",
   older: "",
   query: "",
+  totalPages: "",
   searchResults: [],
   activeProfile: {},
   likes:'',
   likeIds:'',
   ads: [],
+  url: "",
   
 });
