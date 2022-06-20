@@ -142,6 +142,10 @@ ads: computed(() => AppState.ads),
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       posts: computed(() => AppState.posts),
+      newer: computed(() => AppState.newer),
+       totalPages: computed(() => AppState.totalPages),
+      older: computed(() => AppState.older),
+      page: computed(() => AppState.page),
     };
   },
 };
