@@ -6,7 +6,7 @@
 
         <Search />
       </div>
-      <CreatePost />
+      <CreatePost/>
 
       <!-- <img :src="`${ads[0].banner}`" alt="asdwdawda"/> -->
     </div>

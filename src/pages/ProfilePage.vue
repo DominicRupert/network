@@ -48,7 +48,7 @@
     </div>
       <div>
     <div class="row">
-      <CreatePost />
+      <CreatePost  v-show="profile.id == account.id" />
       <Ad v-if="ads.length>0" :ads="ads" />
 
       </div>
