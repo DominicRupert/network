@@ -54,7 +54,29 @@
       </div>
     </div>
     <div class="row">
+      <Ad2 v-if="ads.length > 0" :ads="ads" />
       <Post v-for="p in posts" :key="p.id" :post="p"/>
+      </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-end d-flex flex-row justify-content-around">
+        <button class="btn btn-info py-2 btn-block" @click="changePage(newer)">
+          prev
+        </button>
+      
+
+    
+        <p class="text-center">page: {{ page }}</p>
+     
+   
+      <button
+        class="btn btn-info px-3 py-2 btn-block"
+        @click="changePage(older)"
+      >
+        next
+      </button>
+    </div>
       </div>
   </div>
 </template>
@@ -100,6 +122,14 @@ export default {
       async saveAccount() {
         try {
           await accountService.editAccount(editable.value);
+        } catch (error) {
+          Pop.toast(error.message, "error");
+          logger.error(error);
+        }
+      },
+       async changePage(url) {
+        try {
+          await postsService.changePage(url);
         } catch (error) {
           Pop.toast(error.message, "error");
           logger.error(error);
