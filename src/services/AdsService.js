@@ -8,7 +8,7 @@ class AdsService {
         const res = await api.get("api/ads");
         logger.log(res.data, "sup");
      
-        AppState.ads = res.data.ads;
+        AppState.ads = res.data
     }
 }
 

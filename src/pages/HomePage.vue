@@ -4,13 +4,15 @@
       <Search/>
       <CreatePost/>
 
+    <Ad :ads="ads" />
     </div>
   </div>
   <div class="container-fluid d-flex flex-column">
+    <div class="row">
+
+    </div>
     <div class="row justify-content-center">
-      <Ad v-for="ad in ads" :key="ad.id" :ad="ad"/>
-      <Ad v-for="ad in ads" :key="ad.id" :ad="ad"/>
-      <Post v-for="post in posts" :key="post.id" :post="post" />
+      <Post v-for="(post, index) in posts" :key="post.id" :index = "index" :post="post"/>
       <div class="col-3 text-end">
         <button
           class="btn btn-info px-3 py-2 btn-block"
@@ -51,10 +53,14 @@ export default {
        
         
         await postsService.getPosts();
+          AppState.ads = [];
+       
+           await adsService.getAds();
       } catch (error) {
         Pop.toast(error.message, "error");
         logger.error(error);
       }
+   
     });
     
 

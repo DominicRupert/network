@@ -27,6 +27,7 @@ import { logger } from "../utils/Logger.js";
 import { postsService } from "../services/postsService.js";
 import Pop from "../utils/Pop.js";
 export default {
+   props: { post: { type: Object, reqiured: true } },
   setup() {
     const postData = ref({})
     return {
