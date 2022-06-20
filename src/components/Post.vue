@@ -24,7 +24,7 @@
       <button
         @click="likePost"
         class="mdi mdi-thumb-up btn btn-success rounded-pill content selectable"
-      >{{likes.name}}</button>
+      >{{post.likes.length}}</button>
     </div>
   </div>
 </template>
@@ -78,8 +78,8 @@ export default {
   
       async likePost() {
         try {
-          await postsService.likePost(postData.value);
-          like++
+          await postsService.likePost(props.post.id);
+         
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");

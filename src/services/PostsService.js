@@ -28,25 +28,21 @@ class PostsService {
     const res = await api.post("api/posts/", postData);
     logger.log(res.data);
     
-    AppState.posts.push(res.data.posts);
+    
+    this.getPosts()
   }
   async removePost(id) {
     const res = await api.delete(`api/posts/${id}`);
     logger.log(res.data);
     AppState.posts = AppState.posts.filter((post) => post.id != id);
   }
-  // async likePost(postData,likePost,id,postId,post) {
-  //   const res = await api.post(`api/posts/${post.id}/likes/`, postData+id, postData)
-  //     AppState.likes = res.data.likes
-  //     AppState.posts = res.data.posts;
 
-  // }
-  async likePost(likeData, likeIds, likes, postData, id) {
-    const res = await api.post(`api/posts/posts/${post.id}/likes/`, id);
+  async likePost( id,postData) {
+    const res = await api.post(`api/posts/${id}/like` );
     logger.log(res.data);
 
-    AppState.likes.push(res.data.posts.likes);
-    AppState.likes = res.data.likes;
+    // AppState.likes.push(res.data.like);
+    this.getPosts()
   
   }
 
