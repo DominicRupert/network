@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main class=" bg-secondary">
+  <main class=" bg-dark">
     <router-view />
   </main>
   <Modal id="">

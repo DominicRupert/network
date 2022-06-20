@@ -1,6 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-3 d-flex">
+    <div class="col-4"></div>
+    <div class="col-4 justify-content-center d-flex">
+    <div class="col-4"></div>
 
         <img class="img-fluid" :src="`${ads[1].tall}`" alt="asdwdawda"/>
     </div>

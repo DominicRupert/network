@@ -1,8 +1,15 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-    <div class="d-flex col-md-12 align-items-center">
-        <span class="mdi mdi-ocarina text-primary icon"></span> Dom's pretty sweet social network
+    <div class="row">
+
+      <div class="d-flex col-md-12 align-items-center">
+        <h4>
+          Dom's pretty sweet social network
+
+        </h4> 
+        <span class="mdi mdi-ocarina text-primary icon"></span>
+      </div>
       </div>
     </router-link>
     <button

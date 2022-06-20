@@ -1,5 +1,5 @@
 <template >
-  <div class="col-md-4 d-flex flex-column rounded-3 card bg-dark border border-3">
+  <div class="col-md-4 d-flex flex-column  rounded-3 card bg-secondary border border-3">
     <h3>
       {{ post.body }}
     </h3>

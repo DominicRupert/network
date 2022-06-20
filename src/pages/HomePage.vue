@@ -1,18 +1,25 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row justify-content-center">
       <Ad v-if="ads.length > 0" :ads="ads" />
-      <Search />
+      <div class="container-fluid">
+
+        <Search />
+      </div>
       <CreatePost />
 
       <!-- <img :src="`${ads[0].banner}`" alt="asdwdawda"/> -->
     </div>
   </div>
   <div class="container-fluid d-flex flex-column">
-    <Ad2 v-if="ads.length > 0" :ads="ads" />
+    <div class="row justify-content-center">
+
+      <Ad2 v-if="ads.length > 0" :ads="ads" />
+    </div>
+  </div>
 <div class="container-fluid">
 
-  <div class="row">
+  <div class="row justify-content-center">
     
     <Post
         v-for="(post, index) in posts"
@@ -22,7 +29,6 @@
       />
     </div>
     </div>
-  </div>
 
   <div class="container-fluid">
     <div class="row">
