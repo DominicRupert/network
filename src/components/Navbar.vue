@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex align-items-center">
+    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <div class="d-flex col-md-12 align-items-center">
         <span class="mdi mdi-ocarina text-primary icon"></span> Dom's pretty sweet social network
       </div>
     </router-link>

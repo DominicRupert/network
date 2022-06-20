@@ -1,6 +1,9 @@
 <template>
   <div class="row">
-    <img class="img-fluid" :src="`${ads[0].banner}`" alt="asdwdawda"/>
+    <div class="col-3 d-flex">
+
+        <img class="img-fluid" :src="`${ads[1].tall}`" alt="asdwdawda"/>
+    </div>
    
   </div>
 </template>

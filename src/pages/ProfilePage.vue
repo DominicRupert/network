@@ -49,6 +49,7 @@
       <div>
     <div class="row">
       <CreatePost />
+      <Ad v-if="ads.length>0" :ads="ads" />
 
       </div>
     </div>
@@ -67,6 +68,7 @@ import { logger } from "../utils/Logger";
 import { useRoute } from "vue-router";
 import { profilesService } from "../services/ProfilesService";
 import { postsService } from "../services/PostsService";
+import { adsService } from "../services/AdsService";
 export default {
   name: "Profile",
   setup() {
@@ -81,6 +83,9 @@ export default {
     onMounted(async () => {
       try {
         AppState.posts = [];
+         AppState.ads = [];
+       
+           await adsService.getAds();
         await profilesService.getProfile(route.params.id);
         await postsService.getPostsByProfile(route.params.id);
       } catch (error) {
@@ -103,7 +108,7 @@ export default {
     
     
       profile: computed(() => AppState.profile),
-
+ads: computed(() => AppState.ads),
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       posts: computed(() => AppState.posts),

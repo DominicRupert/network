@@ -1,5 +1,5 @@
 <template >
-  <div class="col-6 card bg-dark border border-3">
+  <div class="col-md-4 d-flex flex-column rounded-3 card bg-dark border border-3">
     <h3>
       {{ post.body }}
     </h3>
@@ -22,7 +22,7 @@
         }}
       </p>
       <button
-        @click="likePost"
+        @click.prevent="likePost"
         class="mdi mdi-thumb-up btn btn-success rounded-pill content selectable"
       >{{post.likes.length}}</button>
     </div>

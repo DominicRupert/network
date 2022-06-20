@@ -1,36 +1,49 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <Search/>
-      <CreatePost/>
+      <Ad v-if="ads.length > 0" :ads="ads" />
+      <Search />
+      <CreatePost />
 
-    <Ad :ads="ads" />
+      <!-- <img :src="`${ads[0].banner}`" alt="asdwdawda"/> -->
     </div>
   </div>
   <div class="container-fluid d-flex flex-column">
-    <div class="row">
+    <Ad2 v-if="ads.length > 0" :ads="ads" />
+<div class="container-fluid">
 
+  <div class="row">
+    
+    <Post
+        v-for="(post, index) in posts"
+        :key="post.id"
+        :index="index"
+        :post="post"
+      />
     </div>
-    <div class="row justify-content-center">
-      <Post v-for="(post, index) in posts" :key="post.id" :index = "index" :post="post"/>
-      <div class="col-3 text-end">
-        <button
-          class="btn btn-info px-3 py-2 btn-block"
-          @click="changePage(newer)"
-        >
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-end d-flex flex-row justify-content-around">
+        <button class="btn btn-info py-2 btn-block" @click="changePage(newer)">
           prev
         </button>
-      </div>
-      <p class="col-3 text-center">page: {{ page }}</p>
-      <div class="col-3 text-start">
-        <button
-          class="btn btn-info px-3 py-2 btn-block"
-          @click="changePage(older)"
-        >
-          next
-        </button>
-      </div>
+      
+
+    
+        <p class="text-center">page: {{ page }}</p>
+     
+   
+      <button
+        class="btn btn-info px-3 py-2 btn-block"
+        @click="changePage(older)"
+      >
+        next
+      </button>
     </div>
+      </div>
   </div>
 </template>
 
@@ -46,23 +59,20 @@ export default {
   name: "Home",
 
   setup() {
-    const route=useRoute();
+    const route = useRoute();
     onMounted(async () => {
       try {
         AppState.posts = [];
-       
-        
+
         await postsService.getPosts();
-          AppState.ads = [];
-       
-           await adsService.getAds();
+        AppState.ads = [];
+
+        await adsService.getAds();
       } catch (error) {
         Pop.toast(error.message, "error");
         logger.error(error);
       }
-   
     });
-    
 
     return {
       posts: computed(() => AppState.posts),
@@ -81,8 +91,6 @@ export default {
           logger.error(error);
         }
       },
-      
-      
     };
   },
 };
